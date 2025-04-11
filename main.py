@@ -1,82 +1,86 @@
-import telebot
-from telebot import types
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AirdropMailX - Free Temp Mail for Airdrops</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background-color: #1f1f1f;
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    .button {
+      background-color: #2e7d32;
+      color: #fff;
+      padding: 12px 24px;
+      margin: 20px 0;
+      border: none;
+      border-radius: 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .button:hover {
+      background-color: #388e3c;
+    }
+    .telegram {
+      margin-top: 30px;
+    }
+    .ads {
+      background-color: #2c2c2c;
+      padding: 10px;
+      margin-top: 30px;
+      border-radius: 10px;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AirdropMailX</h1>
+    <p>Get your free temp mail to join any airdrop or crypto site safely!</p>
+  </header>
 
-# Replace with your bot's API token
-API_TOKEN = '7872467504:AAFflIiWabGlfeYPRGvSpRyUD6fRp-JiaT4'
+  <div class="container">
+    <p>Click below to generate a free temporary email address instantly.</p>
+    <a href="https://temp-mail.org/en/" target="_blank">
+      <button class="button">Generate Email</button>
+    </a>
 
-bot = telebot.TeleBot(API_TOKEN)
+    <div class="telegram">
+      <p>Join our Telegram for airdrop alerts:</p>
+      <a href="https://t.me/yourchannel" target="_blank">
+        <button class="button">Join Telegram</button>
+      </a>
+    </div>
 
-# User data storage (in-memory)
-user_data = {}
+    <div class="ads">
+      <p>-- Ad Slot Here (Google AdSense) --</p>
+    </div>
+  </div>
 
-# Start Command
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    user_id = message.chat.id
-    if user_id not in user_data:
-        user_data[user_id] = {'balance': 100, 'referrals': 0, 'spins': 0, 'deposited': False}
-    markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.add("🎁 Claim Bonus", "🎮 Play Games")
-    markup.add("💰 Deposit", "🔗 Referral")
-    markup.add("💸 Withdraw")
-    bot.send_message(user_id, "Welcome to the Gambling Bot! Choose an option:", reply_markup=markup)
-
-# Bonus Command
-@bot.message_handler(func=lambda message: message.text == "🎁 Claim Bonus")
-def claim_bonus(message):
-    user_id = message.chat.id
-    if user_data[user_id]['balance'] == 100:
-        bot.reply_to(message, "You have already claimed your ₹100 bonus.")
-    else:
-        user_data[user_id]['balance'] += 100
-        bot.reply_to(message, "₹100 has been added to your balance!")
-
-# Referral Command
-@bot.message_handler(func=lambda message: message.text == "🔗 Referral")
-def referral_system(message):
-    user_id = message.chat.id
-    referral_link = f"https://t.me/yourbotusername?start={user_id}"
-    bot.reply_to(message, f"Share this link with your friends:\n{referral_link}\n\nEarn spins for every referral!")
-
-# Spin Wheel Function
-def spin_wheel():
-    return 2  # Always return ₹2 as default win
-
-@bot.message_handler(func=lambda message: message.text == "🎮 Play Games")
-def play_games(message):
-    user_id = message.chat.id
-    spins = user_data[user_id]['spins']
-    if spins > 0:
-        reward = spin_wheel()
-        user_data[user_id]['balance'] += reward
-        user_data[user_id]['spins'] -= 1
-        bot.reply_to(message, f"You spun the wheel and won ₹{reward}! 🎉")
-    else:
-        bot.reply_to(message, "You have no spins left. Refer friends to earn more!")
-
-# Deposit Command
-@bot.message_handler(func=lambda message: message.text == "💰 Deposit")
-def deposit_option(message):
-    bot.reply_to(message, "Send your deposit to this UPI ID:\n`haseenabanu15@ybl`\nAfter payment, send a screenshot for manual confirmation.")
-
-# Withdraw Command
-@bot.message_handler(func=lambda message: message.text == "💸 Withdraw")
-def withdraw_option(message):
-    user_id = message.chat.id
-    if user_data[user_id]['balance'] >= 150:
-        if user_data[user_id]['deposited']:
-            bot.reply_to(message, "Send your withdrawal request to the admin for manual processing.")
-        else:
-            bot.reply_to(message, "You must deposit at least once to activate withdrawals.")
-    else:
-        bot.reply_to(message, "You need a minimum balance of ₹150 to withdraw.")
-
-# Handle Text Messages
-@bot.message_handler(func=lambda message: True)
-def handle_message(message):
-    bot.reply_to(message, "Choose an option from the menu.")
-
-if __name__ == "__main__":
-    print("Bot is running...")
-    bot.polling()
-  
+  <footer>
+    <p>© 2025 AirdropMailX. All rights reserved.</p>
+  </footer>
+</body>
+</html>
